@@ -6,6 +6,7 @@ let btns=["yellow","red","purple","green"];
 let started=false;
 
 let level=0;
+let highscore=0;
 
 let h2=document.querySelector("h2");
 
@@ -40,21 +41,22 @@ function levelup() {
     let ranidx= Math.floor(Math.random()*3);
     let rancol=btns[ranidx];
     let randbtn=document.querySelector(`.${rancol}`);
-    // console.log(ranidx);
-    // console.log(rancol);
-    // console.log(randbtn);
     gameseq.push(rancol);
     console.log(gameseq);
     gameflash(randbtn);
 }
 
 function checkans(idx) {
-    // console.log("curr level:",level);
     if(userseq[idx]===gameseq[idx]) {
         if(userseq.length==gameseq.length) {
             setTimeout(() => {
                 levelup();
             }, 250);
+
+            if(level > highscore) {
+                highscore=level;
+                h3.innerHTML=(`High Score <br> ${highscore}`);
+            }
         }
     }else {
         h2.innerHTML=`<b>Game over!</b> your score was <b>${level}</b><br>press any key to start`;
@@ -63,7 +65,6 @@ function checkans(idx) {
             document.querySelector("body").style.backgroundColor="white";
         }, 150);
 
-        reset();
         started=false;
         gameseq=[];
         userseq=[];
@@ -87,10 +88,8 @@ for(btn of allbtns) {
     btn.addEventListener("click", btnpress);
 }
 
-function reset() {
-    let body=document.querySelector("body");
-    let highscore=document.createElement("p")
-    highscore.classList.add("highscore");
-    body.append(highscore);
-    highscore.innerHTML=(`High score<br>${level}`);
-}
+let body=document.querySelector("body");
+let h3=document.createElement("h3");
+h3.classList.add("highscore");
+body.append(h3);    
+// h3.innerHTML=(`High Score <br> ${level}`);
