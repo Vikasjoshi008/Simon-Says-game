@@ -92,4 +92,3 @@ let body=document.querySelector("body");
 let h3=document.createElement("h3");
 h3.classList.add("highscore");
 body.append(h3);    
-// h3.innerHTML=(`High Score <br> ${level}`);
